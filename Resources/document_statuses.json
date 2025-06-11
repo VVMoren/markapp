@@ -1,0 +1,42 @@
+[
+  {
+    "code": "IN_PROGRESS",
+    "description": "Проверяется"
+  },
+  {
+    "code": "CHECKED_OK",
+    "description": "Обработан"
+  },
+  {
+    "code": "CHECKED_NOT_OK",
+    "description": "Обработан с ошибками"
+  },
+  {
+    "code": "PROCESSING_ERROR",
+    "description": "Техническая ошибка"
+  },
+  {
+    "code": "ACCEPTED",
+    "description": "Принят"
+  },
+  {
+    "code": "CANCELLED",
+    "description": "Аннулирован"
+  },
+  {
+    "code": "WAIT_ACCEPTANCE",
+    "description": "Ожидает приёмку"
+  },
+  {
+    "code": "PARSE_ERROR",
+    "description": "Обработан с ошибками"
+  },
+  {
+    "code": "WAIT_PARTICIPANT_REGISTRATION",
+    "description": "Ожидает регистрации участника в ГИС МТ"
+  },
+  {
+    "code": "WAIT_FOR_CONTINUATION",
+    "description": "Проверяется"
+  }
+]

@@ -1,0 +1,101 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wpfui-icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- System dependency (оставь, если используешь SignedCms или Pkcs#7 из BCL) -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.0-preview.4.25258.110" />
+    <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+  
+    <!-- UI & DI -->
+    <PackageReference Include="WPF-UI" Version="4.0.2" />
+    <PackageReference Include="WPF-UI.DependencyInjection" Version="4.0.2" />
+  
+    <!-- MVVM Toolkit -->
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  
+    <!-- Hosting -->
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.4.25258.110" />
+  </ItemGroup>
+
+<ItemGroup>
+  <EmbeddedResource Include="Resources\Tools\cryptcp.win32.exe" />
+</ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="Assets\wpfui-icon-256.png" />
+    <None Remove="Assets\wpfui-icon-1024.png" />
+    <None Remove="Resources\cis_statuses.json" />
+    <None Remove="Resources\document_statuses.json" />
+    <None Remove="Resources\document_types.json" />
+    <None Remove="Resources\emission_types.json" />
+    <None Remove="Resources\order_statuses.json" />
+    <None Remove="Resources\package_types.json" />
+    <None Remove="Resources\production_types.json" />
+    <None Remove="Resources\product_groups.json" />
+    <None Remove="Resources\return_reasons.json" />
+    <None Remove="Resources\withdrawal_reasons.json" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="dotnetcades">
+      <HintPath>..\..\..\Downloads\dotnetcades-main\dotnetcades-main\dotnetcades\bin\Debug\netstandard2.0\dotnetcades.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\wpfui-icon-256.png" />
+    <Resource Include="Assets\wpfui-icon-1024.png" />
+    <Resource Include="Resources\cis_statuses.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\document_statuses.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\document_types.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\emission_types.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\order_statuses.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\package_types.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\production_types.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Resources\product_groups.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\return_reasons.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\withdrawal_reasons.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Tools\" />
+  </ItemGroup>
+
+</Project>
