@@ -11,12 +11,24 @@ namespace markapp.Helpers
         {
             var assembly = Assembly.GetExecutingAssembly();
             var resourcePath = $"markapp.{relativePath.Replace("/", ".")}";
-            using var stream = assembly.GetManifestResourceStream(resourcePath);
-            if (stream == null)
-                return new();
+            string json;
 
-            using var reader = new StreamReader(stream);
-            var json = reader.ReadToEnd();
+            using var stream = assembly.GetManifestResourceStream(resourcePath);
+            if (stream != null)
+            {
+                using var reader = new StreamReader(stream);
+                json = reader.ReadToEnd();
+            }
+            else
+            {
+                var filePath = Path.Combine(Path.GetDirectoryName(assembly.Location) ?? string.Empty,
+                    relativePath.Replace('/', Path.DirectorySeparatorChar));
+
+                if (!File.Exists(filePath))
+                    return new();
+
+                json = File.ReadAllText(filePath);
+            }
             var data = JsonSerializer.Deserialize<List<DictionaryEntry>>(json);
             var dict = new Dictionary<string, string>();
 
