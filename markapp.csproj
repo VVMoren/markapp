@@ -62,33 +62,33 @@
   <ItemGroup>
     <Resource Include="Assets\wpfui-icon-256.png" />
     <Resource Include="Assets\wpfui-icon-1024.png" />
-    <Resource Include="Resources\cis_statuses.json">
+    <EmbeddedResource Include="Resources\cis_statuses.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\document_statuses.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\document_statuses.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\document_types.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\document_types.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\emission_types.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\emission_types.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
     <Resource Include="Resources\order_statuses.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\package_types.json">
+    <EmbeddedResource Include="Resources\package_types.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\production_types.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\production_types.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Content Include="Resources\product_groups.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\product_groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Resources\return_reasons.json">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\return_reasons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
     <Resource Include="Resources\withdrawal_reasons.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

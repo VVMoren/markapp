@@ -17,6 +17,8 @@ namespace markapp.Views.Pages
     {
         private Dictionary<string, string> _documentTypes;
         private Dictionary<string, string> _documentStatuses;
+        private List<DocumentDto> _allDocuments = new();
+
 
         public DocumentsPage()
         {
@@ -31,13 +33,46 @@ namespace markapp.Views.Pages
                 LoadDictionaries();
 
                 var documents = await FetchDocumentsAsync();
-                PopulateDocumentsGroupedByMonth(documents);
+                _allDocuments = documents;
+                PopulateDocumentsGroupedByMonth(_allDocuments);
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при загрузке документов: {ex.Message}");
             }
         }
+
+        private void FilterBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = FilterBox.Text;
+            FilterDocuments(text);
+        }
+
+
+        private void FilterDocuments(string filter)
+        {
+            if (string.IsNullOrWhiteSpace(filter))
+            {
+                PopulateDocumentsGroupedByMonth(_allDocuments);
+                return;
+            }
+
+            var terms = filter.Split('|', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+            var filtered = _allDocuments.Where(doc =>
+                terms.Any(term =>
+                    (doc.Type?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (doc.Status?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (doc.SenderInn?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (doc.SenderName?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (doc.ReceiverInn?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false) ||
+                    (doc.ReceiverName?.Contains(term, StringComparison.OrdinalIgnoreCase) ?? false)
+                )).ToList();
+
+            PopulateDocumentsGroupedByMonth(filtered);
+        }
+
 
         private void LoadDictionaries()
         {

@@ -7,13 +7,28 @@
       Title="DocumentsPage"
       Background="{DynamicResource ApplicationBackgroundBrush}">
 
-    <!-- Вертикальный скролл + контейнер -->
-    <ScrollViewer VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Disabled"
-                  Padding="10">
-        <StackPanel x:Name="MonthsPanel"
-                    Margin="10"
-                    Orientation="Vertical"
-                    Background="Transparent" />
-    </ScrollViewer>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox Name="FilterBox"
+                 Grid.Row="0"
+                 Height="30"
+                 Margin="0,0,0,10"
+                 FontSize="14"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Stretch"
+                 TextChanged="FilterBox_TextChanged"
+                 ToolTip="Введите строку фильтрации. Разделяйте значения через | (ИЛИ)" />
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="MonthsPanel"
+                        Orientation="Vertical"
+                        Background="Transparent" />
+        </ScrollViewer>
+    </Grid>
 </Page>
