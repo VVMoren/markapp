@@ -9,6 +9,8 @@ namespace markapp.Helpers
     {
         public string LogFilePath { get; set; } = Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory, "Resources", "Tools", "TokenLog.txt");
+
+        public string InsertsFilePath { get; set; } = string.Empty;
     }
 
     public static class SettingsManager

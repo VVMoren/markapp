@@ -1,18 +1,20 @@
-﻿using markapp.ViewModels.Pages;
+﻿using System.Windows.Controls;
+using markapp.ViewModels.Pages;
 using Wpf.Ui.Abstractions.Controls;
+using Wpf.Ui.Controls;
 
 namespace markapp.Views.Pages
 {
-    public partial class DashboardPage : INavigableView<DashboardViewModel>
+    public partial class DashboardPage : Page, INavigableView<DashboardViewModel>
     {
         public DashboardViewModel ViewModel { get; }
 
         public DashboardPage(DashboardViewModel viewModel)
         {
-            ViewModel = viewModel;
-            DataContext = this;
+            InitializeComponent(); // Обязательно первым
 
-            InitializeComponent();
+            ViewModel = viewModel;
+            DataContext = ViewModel;
         }
     }
 }
