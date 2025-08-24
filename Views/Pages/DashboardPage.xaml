@@ -6,10 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:local="clr-namespace:markapp.Views.Pages"
+    xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+
     mc:Ignorable="d"
     Title="DashboardPage"
     d:DataContext="{d:DesignInstance local:DashboardPage, IsDesignTimeCreatable=False}"
-    d:DesignHeight="900"
+    d:DesignHeight="1200"
     d:DesignWidth="1000"
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}">
@@ -102,6 +104,18 @@
                 </StackPanel>
             </Border>
 
+            <!-- 🌐 Встроенный браузер -->
+            <Border BorderBrush="#AAA" BorderThickness="1" Padding="12" CornerRadius="6" Margin="0,0,0,16"
+                    Visibility="{Binding IsBrowserVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel Height="375" Width="916">
+                    <TextBlock Text="Браузер для публикации в НК" FontSize="20" FontWeight="Bold" Margin="0,0,0,12" />
+                    <wv2:WebView2 x:Name="Browser"
+                                  Source="{Binding BrowserUrl}"
+                                  HorizontalAlignment="Stretch"
+                                  Height="338"/>
+                </StackPanel>
+            </Border>
+
             <!-- 🟥 AGG-документы -->
             <Border BorderBrush="#AAA" BorderThickness="1" Padding="12" CornerRadius="6">
                 <StackPanel>
@@ -138,7 +152,7 @@
                     </ItemsControl>
                 </StackPanel>
             </Border>
-
         </StackPanel>
     </ScrollViewer>
+
 </Page>
