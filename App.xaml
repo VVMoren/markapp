@@ -6,12 +6,16 @@
     DispatcherUnhandledException="OnDispatcherUnhandledException"
     Exit="OnExit"
     Startup="OnStartup">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Light" />
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- ✅ Перенос конвертера внутрь общего словаря -->
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

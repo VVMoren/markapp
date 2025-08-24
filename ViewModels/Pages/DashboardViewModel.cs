@@ -10,6 +10,8 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using markapp.Services;
+
 
 
 namespace markapp.ViewModels.Pages
@@ -35,6 +37,11 @@ namespace markapp.ViewModels.Pages
 
         public bool IsStartEnabled => File.Exists(SetsFilePath) && File.Exists(InsertsFilePath);
 
+        [ObservableProperty]
+        private string _csrfToken;
+
+        [ObservableProperty]
+        private Dictionary<string, string> _sessionCookies;
 
         partial void OnInsertsFilePathChanged(string value)
         {
@@ -206,7 +213,6 @@ namespace markapp.ViewModels.Pages
             return null;
         }
 
-
         [RelayCommand]
         private async Task LinkSetGtin()
         {
@@ -247,7 +253,7 @@ namespace markapp.ViewModels.Pages
                 var jsonPayload = JsonConvert.SerializeObject(payload);
                 var content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json");
 
-                string url = "https://национальный-каталог.рф/api/v3/true-api/nk/feed?apikey=uugdjuxx3uhw9l05";
+                string url = "https://markirovka.crpt.ru/api/v3/true-api/nk/feed?apikey=uugdjuxx3uhw9l05";
                 var response = await client.PostAsync(url, content);
 
                 string responseBody = await response.Content.ReadAsStringAsync();
@@ -264,7 +270,66 @@ namespace markapp.ViewModels.Pages
             }
         }
 
+        [ObservableProperty] private bool _isBrowserVisible;
+        [ObservableProperty] private Uri _browserUrl;
+        private NkAuthResult _nkSession;
 
+        [RelayCommand]
+        private async Task AuthenticateToNkAsync()
+        {
+            try
+            {
+                var result = await NkWebAuthService.GetNkTokenAndCookiesAsync(
+                    certName: "ГОЛУБЕЦ ВЛАДИСЛАВ ВИТАЛЬЕВИЧ",
+                    cryptcpExe: @"H:\Token_4z\cryptcp.win32.exe",
+                    dataFile: @"H:\Token_4z\data.txt",
+                    signedDataFile: @"H:\Token_4z\data_sign.txt",
+                    nkWeb: "https://xn--j1ab.xn----7sbabas4ajkhfocclk9d3cvfsa.xn--p1ai",
+                    fingerprint: "C333E83AE307708B1CD5EB8EB94DB0D37CDF1C51",
+                    inn: "771683739093"
+                );
+
+                if (result == null)
+                {
+                    MessageBox.Show("Не удалось авторизоваться в НК.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                CsrfToken = result.CsrfToken;
+                SessionCookies = result.SessionCookies;
+                MessageBox.Show("Авторизация прошла успешно!", "НК", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка авторизации: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        [RelayCommand]
+        private async Task PublishProductsAsync()
+        {
+            try
+            {
+                MatchStatus = "Авторизация в ЛК НК...";
+                _nkSession = await NkAuthService.AuthenticateNkAsync();
+
+                if (_nkSession == null)
+                {
+                    MessageBox.Show("Ошибка авторизации.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                CsrfToken = _nkSession.CsrfToken;
+                SessionCookies = new Dictionary<string, string> { { _nkSession.SessionName, _nkSession.SessionId } };
+                IsBrowserVisible = true;
+                BrowserUrl = new Uri("https://xn--j1ab.xn----7sbabas4ajkhfocclk9d3cvfsa.xn--p1ai/products");
+                MatchStatus = "✅ Авторизация выполнена";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при авторизации: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         private class ProductLink
         {

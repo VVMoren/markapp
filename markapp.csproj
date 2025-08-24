@@ -16,9 +16,11 @@
 
   <ItemGroup>
     <!-- System dependency (оставь, если используешь SignedCms или Pkcs#7 из BCL) -->
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3351.48" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.0-preview.4.25258.110" />
     <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.7" />
   
     <!-- UI & DI -->
     <PackageReference Include="WPF-UI" Version="4.0.2" />
